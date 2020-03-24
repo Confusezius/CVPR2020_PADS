@@ -1,0 +1,4 @@
+conda install matplotlib pandas tqdm scipy scikit-learn scikit-image pillow
+pip install pretrainedmodels wandb
+conda install pytorch torchvision faiss-gpu cudatoolkit=10.0 -c pytorch
+#conda install faiss-gpu cudatoolkit=10.0 -c pytorch
