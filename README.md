@@ -13,7 +13,7 @@
 This repository contains the code to run policy-adapted negative sampling for ranking-based Deep Metric Learning methods, as proposed in our CVPR 2020 publication (*link*).  
 Sample runs that *can* achieve similar results to those reported in our paper are listed in `SAMPLE_RUNS.sh`, as RL-based methods introduce a higher level of variance.  
 However, to foster direct reproducibility, we provide a set of pretrained weights in `Pretrained_Weights` achieving similar results to those shown for each dataset.
-Please use this download link: *link*
+Please use this download link: https://www.dropbox.com/sh/9vv72wflxp31bda/AAACBAagUGRJFB94173FNBjza?dl=0. Use `sample_test.py` to see how to use and load the network weights. The comments contain further instructions.
 
 
 ***Note***: Reimplementations of baseline methods are borrowed and adapted from https://github.com/Confusezius/Deep-Metric-Learning-Baselines.
@@ -71,7 +71,8 @@ python main.py
 * `losses.py`: DML objectives used.
 * `netlib.py`: Architecture of backbone network (ResNet50).
 * `evaluate.py`: Evaluation protocols to compute recall and nmi.
-* `auxiliaries.py`: Uilitiy functions.
+* `auxiliaries.py`: Utiliy functions.
+* `sample_test.py`: Script to show how use stored network weights.
 * `SAMPLE_RUNS.sh`: Contains sample runs to produce good results.
 
 ---
