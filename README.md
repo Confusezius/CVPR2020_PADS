@@ -10,7 +10,7 @@
 
 ---
 
-This repository contains the code to run policy-adapted negative sampling for ranking-based Deep Metric Learning methods, as proposed in our CVPR 2020 publication (*link*).  
+This repository contains the code to run policy-adapted negative sampling for ranking-based Deep Metric Learning methods, as proposed in our CVPR 2020 publication (https://arxiv.org/abs/2003.11113).  
 Sample runs that *can* achieve similar results to those reported in our paper are listed in `SAMPLE_RUNS.sh`, as RL-based methods introduce a higher level of variance.  
 However, to foster direct reproducibility, we provide a set of pretrained weights in `Pretrained_Weights` achieving similar results to those shown for each dataset.
 Please use this download link: https://www.dropbox.com/sh/9vv72wflxp31bda/AAACBAagUGRJFB94173FNBjza?dl=0. Use `sample_test.py` to see how to use and load the network weights. The comments contain further instructions.
@@ -105,5 +105,12 @@ Datasets
 ### Citing this Repo/Paper
 If you use this repository, method or paper, please cite us via
 ```
-Placeholder
+@misc{roth2020pads,
+    title={PADS: Policy-Adapted Sampling for Visual Similarity Learning},
+    author={Karsten Roth and Timo Milbich and Björn Ommer},
+    year={2020},
+    eprint={2003.11113},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}
 ```
