@@ -60,7 +60,8 @@ python main.py
 --policy_n_support 30 --policy_support_limit 0.1 1.4 --loss marginloss
 ```
 
-***Note:*** This project is set up to work well with `wandb` for online logging, which can be activated by setting the `--wandb_log`-flag. In doing so, all metrics will be stored to your *Weights & Biases*-Account, including the progression of the sampling distribution, which is nice to look at and to understand what part of the distance spectrum correlates how/when with performance.
+***Note:*** This project is set up to work well with `wandb` for online logging, which can be activated by setting the `--wandb_log`-flag. In doing so, all metrics will be stored to your *Weights & Biases*-Account, including the progression of the sampling distribution, which is nice to look at and to understand what part of the distance spectrum correlates how/when with performance. A sample run could then look like this (which contains the discrete adaptive sampling histogram in standard and log-style for a specific run):
+![S](images/sample_viz.png)
 
 
 ---
