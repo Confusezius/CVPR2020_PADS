@@ -43,6 +43,8 @@ class Sampler():
         self.method = method
         if method=='semihard':
             self.give = self.semihardsampling
+        elif method=='softhard':
+            self.give = self.softhardsampling
         elif method=='distance':
             self.give = self.distanceweightedsampling
         elif method=='random':
@@ -68,7 +70,38 @@ class Sampler():
         sampled_triplets = random.sample(sampled_triplets, batch.shape[0])
         return sampled_triplets
 
-    def semihardsampling(self, batch, labels, gt_labels=None):
+    def semihardsampling(self, batch, labels, margin=0.2):
+        if isinstance(labels, torch.Tensor):
+            labels = labels.detach().numpy()
+        bs = batch.size(0)
+        #Return distance matrix for all elements in batch (BSxBS)
+        distances = self.pdist(batch.detach()).detach().cpu().numpy()
+
+        positives, negatives = [], []
+        anchors = []
+        for i in range(bs):
+            l, d = labels[i], distances[i]
+            neg = labels!=l; pos = labels==l
+
+            anchors.append(i)
+            pos[i] = False
+            p      = np.random.choice(np.where(pos)[0])
+            positives.append(p)
+
+            #Find negatives that violate tripet constraint semi-negatives
+            neg_mask = np.logical_and(neg,d>d[p])
+            neg_mask = np.logical_and(neg_mask,d<margin+d[p])
+            if neg_mask.sum()>0:
+                negatives.append(np.random.choice(np.where(neg_mask)[0]))
+            else:
+                negatives.append(np.random.choice(np.where(neg)[0]))
+
+        sampled_triplets = [[a, p, n] for a, p, n in zip(anchors, positives, negatives)]
+        return sampled_triplets
+
+    def softhardsampling(self, batch, labels):
+        """
+        """
         if isinstance(labels, torch.Tensor): labels = labels.detach().numpy()
         bs = batch.size(0)
         #Return distance matrix for all elements in batch (BSxBS)
@@ -101,6 +134,7 @@ class Sampler():
 
         sampled_triplets = [[a, p, n] for a, p, n in zip(anchors, positives, negatives)]
         return sampled_triplets
+
 
     def pdist(self, A, eps = 1e-4):
         prod = torch.mm(A, A.t())
