@@ -89,7 +89,7 @@ def include_pads_args(parser):
 
     ###
     parser.add_argument('--policy_reward_type',    default=2, type=int,
-                        help='Target reward metric to be optimized on the validation set. Options are: recall-N and nmi. Multiple combinations are allowed.')
+                        help='Target reward metric to be optimized on the validation set. 0,1,2 denote nmi,recall,recall+nmi as reward signal.')
     # parser.add_argument('--policy_reward_metrics',  nargs='+',    default=['recall-0'], type=str,
     #                     help='Target reward metric to be optimized on the validation set. Options are: recall-N and nmi. Multiple combinations are allowed.')
 
@@ -103,18 +103,19 @@ def include_pads_args(parser):
     parser.add_argument('--policy_old_update_iter',       default=3, type=int,           help='PPO-Specific Parameter: Number of iterations before updating the old policy again.')
 
     ###
-    parser.add_argument('--policy_sup_metric_collect',  default=-1,              type=int,           help='Number of epochs to train with the initial distribution before turning on PADS. Default runs PADS directly.')
+    parser.add_argument('--policy_sup_metric_collect',  default=-1,              type=int,           help='Optional: If one wishes to utilize episodes with T>1, set this value to the appropr. scale. ')
     parser.add_argument('--policy_training_delay',  default=0,               type=int,           help='Number of epochs to train with the initial distribution before turning on PADS. Default runs PADS directly.')
     parser.add_argument('--policy_init_distr',      default='uniform_low',   type=str,           help='Type of initial distribution to use. Default is uniform_low, which places high probabilities between [0.3 and 0.7].\
                                                                                                       Other options are: random, uniform_high, uniform_avg, uniform_low, uniform_low_and_tight, uniform_lowish_and_tight and the\
                                                                                                       respective normal variants. You may also set uniform/low and set the mean/std in --policy_init_params.')
-    parser.add_argument('--policy_init_params',     nargs='+', default=[0.5,0.04],   type=float, help='Custom initiali distribution parameters for either normal or uniform initial distributions:\
+    parser.add_argument('--policy_init_params',     nargs='+', default=[0.5,0.04],   type=float, help='Custom initial distribution parameters for either normal or uniform initial distributions:\
                                                                                                       e.g. [mu, sig] = [0.5, 0.04] for normal.')
 
-    parser.add_argument('--policy_log_distr_plots', action='store_true',  help='Optional: Needs to be set if training/validation set scrambling should be performed.')
-    parser.add_argument('--policy_merge_oobs',      action='store_true',  help='Optional: Needs to be set if training/validation set scrambling should be performed.')
-    parser.add_argument('--policy_include_pos',     action='store_true',  help='Optional: Needs to be set if training/validation set scrambling should be performed.')
-    parser.add_argument('--policy_include_same',    action='store_true',  help='Optional: Needs to be set if training/validation set scrambling should be performed.')
+    parser.add_argument('--policy_log_distr_plots', action='store_true',  help='Plot Sampling Distribution Progression as Pyplot.')
+    parser.add_argument('--policy_merge_oobs',      action='store_true',  help='Self-Regularisation Pt.1: Values below lower intertval bound are controlled together (same sampling bin).')
+    parser.add_argument('--policy_include_pos',     action='store_true',  help='Self-Regularisation Pt.2: Include positives into negative sample selection. Excludes positive==anchor.')
+    parser.add_argument('--policy_include_same',    action='store_true',  help='Self-Regularisation Pt.3: Specifically include positive==anchor in negatives as well.')
+    parser.add_argument('--policy_no_self_reg',     action='store_true',  help='Perform NO Self-Regularisation (notable performance drop!).')
     return parser
 
 

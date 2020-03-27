@@ -129,8 +129,10 @@ if opt.dataset=='online_products':
 assert not opt.bs%opt.samples_per_class, 'Batchsize needs to fit number of samples per class for distance sampling and margin/triplet loss!'
 
 opt.pretrained = not opt.not_pretrained
-opt.use_learned_sampler = opt.sampling=='learned'
-
+opt.use_learned_sampler  = opt.sampling=='learned'
+opt.policy_include_pos   = not opt.policy_no_self_reg
+opt.policy_include_same  = not opt.policy_no_self_reg
+opt.policy_include_merge = not opt.policy_no_self_reg
 
 """==================================================================================================="""
 ################### GPU SETTINGS ###########################
