@@ -8,6 +8,8 @@
 
 ***Primary Contact:*** Karsten Roth
 
+For baseline implementations, check out https://github.com/Confusezius/Revisiting_Deep_Metric_Learning_PyTorch and the accompanying paper!
+
 ---
 
 This repository contains the code to run policy-adapted negative sampling for ranking-based Deep Metric Learning methods, as proposed in our CVPR 2020 publication (https://arxiv.org/abs/2003.11113).  
